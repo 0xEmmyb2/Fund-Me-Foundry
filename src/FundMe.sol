@@ -6,7 +6,7 @@ import {AggregatorV3Interface} from "@chainlink/contracts/src/v0.8/shared/interf
 import {PriceConverter} from "./PriceConverter.sol";
 
 
-error NotOwner();
+error FundMe_NotOwner();
 error MinimumNotReached();
 
 //814618 gas
@@ -67,7 +67,7 @@ contract FundMe {
 
     //Use of modifiers
     modifier  onlyOwner {
-        if(msg.sender != i_owner) revert NotOwner();
+        if(msg.sender != i_owner) revert FundMe_NotOwner();
         _;
     }
 
