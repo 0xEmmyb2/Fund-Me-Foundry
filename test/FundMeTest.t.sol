@@ -18,8 +18,6 @@ contract FundMeTest is Test{
     }
 
     function testOwnerIsMsgSender() public {
-        console.log("Owner: ", fundMe.i_owner());
-        console.log("Msg Sender: ", msg.sender);
         assertEq(fundMe.i_owner(), address(this));
     }
 }
