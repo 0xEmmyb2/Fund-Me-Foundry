@@ -2,8 +2,14 @@
 src = "src"
 out = "out"
 libs = ["lib", "node_modules"]
-solc_version = "0.8.19"
 remappings = [
-  "forge-std/=lib/forge-std/src/",
-  "@chainlink/=node_modules/@chainlink/"
+    "@chainlink/=node_modules/@chainlink/"
 ]
+solc = "0.8.19"
+fs_permissions = [{ access = "read", path = "./broadcast" }]
+
+[etherscan]
+sepolia = { key = "${ETHERSCAN_API_KEY}" }
+
+[rpc_endpoints]
+sepolia = "${SEPOLIA_RPC_URL}"
