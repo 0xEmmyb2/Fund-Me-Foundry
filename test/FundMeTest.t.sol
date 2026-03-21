@@ -1,29 +1,28 @@
-//SPDX-License-Identifer: MIT
+//SPDX-License-Identifier: MIT
 
 pragma solidity ^0.8.19;
 
 import {Test, console} from "forge-std/Test.sol";
 import {FundMe} from "../src/FundMe.sol";
 
-contract FundMeTest is Test{
+contract FundMeTest is Test {
     FundMe fundMe;
 
     function setUp() external {
         //us -> FundMeTest -> FundMe
-        fundMe = new FundMe();
+        fundMe = new FundMe(0x694AA1769357215DE4FAC081bf1f309aDC325306);
     }
 
-    function testMinimumDollarIsFive() public {
+    function testMinimumDollarIsFive() public view {
         assertEq(fundMe.MINIMUM_USD(), 5e18);
     }
 
-    function testOwnerIsMsgSender() public {
+    function testOwnerIsMsgSender() public view {
         assertEq(fundMe.i_owner(), address(this));
     }
 
-    function testPriceFeedVersionIsAccurate() public {
+    function testPriceFeedVersionIsAccurate() public view {
         uint256 version = fundMe.getVersion();
         assertEq(version, 4);
     }
 }
-
