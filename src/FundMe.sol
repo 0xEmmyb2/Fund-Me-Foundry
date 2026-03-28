@@ -77,7 +77,7 @@ contract FundMe {
     }
 
     modifier minimum() {
-        if (msg.value.getConversionRate(s_priceFeed) >= MINIMUM_USD)
+        if (msg.value.getConversionRate(s_priceFeed) < MINIMUM_USD)
             revert MinimumNotReached();
         _;
     }
