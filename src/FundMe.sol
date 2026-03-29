@@ -13,13 +13,13 @@ error MinimumNotReached();
 contract FundMe {
     using PriceConverter for uint256;
 
-    address[] public funders;
+    address[] private s_funders;
 
-    mapping(address => uint256) public addressToAmountFunded;
+    mapping(address => uint256) private s_addressToAmountFunded;
 
     uint256 public constant MINIMUM_USD = 5 * 10 ** 18;
 
-    address public immutable i_owner;
+    address private immutable i_owner;
 
     AggregatorV3Interface public s_priceFeed;
 
@@ -30,8 +30,8 @@ contract FundMe {
 
     function fund() public payable minimum {
         // require(PriceConverter.getConversionRate(msg.value) >= MINIMUM_USD, "You need to spend more ETH!");
-        funders.push(msg.sender);
-        addressToAmountFunded[msg.sender] += msg.value;
+        s_funders.push(msg.sender);
+        s_addressToAmountFunded[msg.sender] += msg.value;
     }
 
     function getVersion() public view returns (uint256) {
@@ -44,16 +44,16 @@ contract FundMe {
 
         for (
             uint256 funderIndex = 0;
-            funderIndex < funders.length;
+            funderIndex < s_funders.length;
             funderIndex++
         ) {
-            funders[funderIndex];
-            address funder = funders[funderIndex];
-            addressToAmountFunded[funder] = 0;
+            s_funders[funderIndex];
+            address funder = s_funders[funderIndex];
+            s_addressToAmountFunded[funder] = 0;
         }
 
         //Resetting Arrays
-        funders = new address[](0);
+        s_funders = new address[](0);
         //Withdraw the funds
 
         // //transfer
@@ -91,4 +91,16 @@ contract FundMe {
     fallback() external payable {
         fund();
     }
+
+    /*
+    *view / pure functions(Getters)
+    */
+
+   function getAddressToAmountFunded(address fundingAddress) external view returns(uint256) {
+        return s_addressToAmountFunded[fundingAddress];
+   }
+
+   function getFunder(uint256 index) external view returns(address) {
+       return s_funders[index];
+   }
 }
