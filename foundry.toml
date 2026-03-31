@@ -3,7 +3,8 @@ src = "src"
 out = "out"
 libs = ["lib", "node_modules"]
 remappings = [
-    "@chainlink/=node_modules/@chainlink/"
+    "@chainlink/=node_modules/@chainlink/",
+    "foundry-devops/=lib/foundry-devops/"
 ]
 solc = "0.8.19"
 fs_permissions = [{ access = "read", path = "./broadcast" }]
