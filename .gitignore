@@ -15,4 +15,4 @@ docs/
 # Dotenv file
 .env
 
-node_module/
+node_modules/
